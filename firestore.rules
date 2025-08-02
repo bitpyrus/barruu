@@ -1,0 +1,65 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users can read and write their own user documents
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Posts collection rules
+    match /posts/{postId} {
+      // Anyone can read published posts
+      allow read: if resource.data.published == true;
+
+      // Authenticated users can read their own posts (including drafts)
+      allow read: if request.auth != null && request.auth.uid == resource.data.authorId;
+
+      // Authenticated users can create posts
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.authorId
+        && validatePostData(request.resource.data);
+
+      // Users can update their own posts
+      allow update: if request.auth != null
+        && request.auth.uid == resource.data.authorId
+        && request.auth.uid == request.resource.data.authorId
+        && validatePostData(request.resource.data);
+
+      // Users can delete their own posts
+      allow delete: if request.auth != null && request.auth.uid == resource.data.authorId;
+    }
+
+    // Comments collection (if you add comments later)
+    match /posts/{postId}/comments/{commentId} {
+      allow read: if true; // Anyone can read comments on published posts
+      allow create: if request.auth != null && validateCommentData(request.resource.data);
+      allow update, delete: if request.auth != null && request.auth.uid == resource.data.authorId;
+    }
+
+    // Helper function to validate post data
+    function validatePostData(data) {
+      return data.keys().hasAll(['title', 'content', 'tags', 'authorId', 'published', 'createdAt', 'updatedAt'])
+        && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+        && data.content is string && data.content.size() > 0 && data.content.size() <= 50000
+        && data.tags is list && data.tags.size() >= 1 && data.tags.size() <= 10
+        && data.authorId is string && data.authorId.size() > 0
+        && data.published is bool
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp
+        && (data.published == false || data.publishedAt is timestamp)
+        && data.readTime is number && data.readTime >= 0
+        && data.likesCount is number && data.likesCount >= 0
+        && data.commentsCount is number && data.commentsCount >= 0
+        && data.viewsCount is number && data.viewsCount >= 0;
+    }
+
+    // Helper function to validate comment data (for future use)
+    function validateCommentData(data) {
+      return data.keys().hasAll(['content', 'authorId', 'createdAt'])
+        && data.content is string && data.content.size() > 0 && data.content.size() <= 1000
+        && data.authorId is string && data.authorId.size() > 0
+        && data.createdAt is timestamp;
+    }
+  }
+}

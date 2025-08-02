@@ -5,12 +5,12 @@ import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   // These will be set up by the user
-  apiKey: "demo-api-key",
-  authDomain: "barruu-demo.firebaseapp.com",
-  projectId: "barruu-demo",
-  storageBucket: "barruu-demo.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:demo"
+  apiKey: "AIzaSyDIcIeCpVP7oshkUVvGcUmJxeuAJBcDXzY",
+  authDomain: "barruu-a4214.firebaseapp.com",
+  projectId: "barruu-a4214",
+  storageBucket: "barruu-a4214.firebasestorage.app",
+  messagingSenderId: "806163566580",
+  appId: "1:806163566580:web:f7712adfcba081ee7e73a1"
 };
 
 // Initialize Firebase
