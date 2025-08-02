@@ -18,6 +18,23 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				heading: ['var(--font-heading)'],
+				body: ['var(--font-body)'],
+			},
+			backgroundImage: {
+				'hero-gradient': 'var(--gradient-hero)',
+				'card-gradient': 'var(--gradient-card)',
+				'accent-gradient': 'var(--gradient-accent)',
+			},
+			boxShadow: {
+				'soft': 'var(--shadow-soft)',
+				'medium': 'var(--shadow-medium)',
+				'strong': 'var(--shadow-strong)',
+			},
+			transitionTimingFunction: {
+				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
