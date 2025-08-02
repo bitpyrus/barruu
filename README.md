@@ -1,73 +1,188 @@
-# Welcome to your Lovable project
+# Barruu - Modern Publishing Platform
 
-## Project info
+🧭 **Vision**: Barruu (meaning "writing" or "article" in Afan Oromo) is a modern storytelling platform where anyone can write, read, follow, and engage. Built as a fresh, flexible, and user-friendly alternative to Medium.
 
-**URL**: https://lovable.dev/projects/6f1224d1-356a-45a4-bd0f-7832e49e351b
+## 🎨 Design Philosophy
 
-## How can I edit this code?
+- **Typography-first**: Beautiful reading experience with perfect contrast and readability
+- **Warm earth tones**: Terracotta, sage green, and warm neutrals for a welcoming feel
+- **Mobile-first**: Responsive design that prioritizes mobile experience
+- **Performance-focused**: Fast, smooth interactions with thoughtful animations
 
-There are several ways of editing your application.
+## ✨ Features
 
-**Use Lovable**
+### Core Functionality
+- ✅ **User Authentication**: Firebase Auth with email/password and social login
+- ✅ **Rich Text Editor**: TipTap-powered editor with formatting, images, and links
+- ✅ **Article Publishing**: Write, edit, and publish articles with tags
+- ✅ **Content Discovery**: Explore feed with search and filtering
+- ✅ **User Profiles**: Complete author profiles with follower system
+- ✅ **Article Reading**: Clean, distraction-free reading experience
+- ✅ **Social Features**: Like, comment, follow, and bookmark articles
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6f1224d1-356a-45a4-bd0f-7832e49e351b) and start prompting.
+### Design System
+- ✅ **Semantic Color Tokens**: HSL-based design system with light/dark modes
+- ✅ **Typography Scale**: Carefully crafted heading and body text styles
+- ✅ **Component Variants**: Enhanced shadcn/ui components with custom variants
+- ✅ **Responsive Layout**: Mobile-first responsive design
+- ✅ **Smooth Animations**: Subtle hover effects and transitions
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠 Technology Stack
 
-**Use your preferred IDE**
+### Frontend
+- **React 18** - Modern React with hooks and functional components
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and development server
+- **Tailwind CSS** - Utility-first CSS framework with custom design system
+- **shadcn/ui** - High-quality, accessible UI components
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Rich Text Editing
+- **TipTap** - Extensible rich text editor
+- **TipTap Extensions** - Image, Link, and formatting support
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Backend (Ready for Firebase)
+- **Firebase Auth** - User authentication and management
+- **Firestore** - NoSQL database for articles, users, and comments
+- **Firebase Storage** - File storage for images and media
 
-Follow these steps:
+### State Management
+- **React Context** - Authentication state management
+- **TanStack Query** - Server state management and caching
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 🚀 Getting Started
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Prerequisites
+- Node.js 18+ and npm
+- Firebase project (for backend functionality)
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Installation
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+1. **Clone the repository**
+   ```bash
+   git clone <your-repo-url>
+   cd barruu
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Firebase Setup**
+   - Create a new Firebase project at [console.firebase.google.com](https://console.firebase.google.com)
+   - Enable Authentication, Firestore, and Storage
+   - Copy your Firebase config and replace the demo config in `src/lib/firebase.ts`
+
+4. **Start development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open your browser**
+   - Navigate to `http://localhost:8080`
+
+### Firebase Configuration
+
+Update `src/lib/firebase.ts` with your Firebase project credentials:
+
+```typescript
+const firebaseConfig = {
+  apiKey: "your-api-key",
+  authDomain: "your-project.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project.appspot.com",
+  messagingSenderId: "your-sender-id",
+  appId: "your-app-id"
+};
 ```
 
-**Edit a file directly in GitHub**
+## 📁 Project Structure
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   ├── auth/           # Authentication components
+│   ├── editor/         # Rich text editor components
+│   ├── Header.tsx      # Main navigation
+│   ├── Footer.tsx      # Footer component
+│   └── ...
+├── pages/              # Route components
+│   ├── Index.tsx       # Landing page
+│   ├── Write.tsx       # Article editor
+│   ├── Explore.tsx     # Content discovery
+│   ├── ArticleView.tsx # Article reading
+│   ├── Profile.tsx     # User profiles
+│   └── ...
+├── contexts/           # React contexts
+│   └── AuthContext.tsx # Authentication state
+├── lib/                # Utilities and config
+│   ├── firebase.ts     # Firebase configuration
+│   ├── utils.ts        # Utility functions
+│   └── types.ts        # Type exports
+├── types/              # TypeScript type definitions
+│   └── index.ts        # Application types
+└── ...
+```
 
-**Use GitHub Codespaces**
+## 🎯 Roadmap
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Phase 1 (Current)
+- ✅ Core publishing platform
+- ✅ User authentication
+- ✅ Rich text editing
+- ✅ Article discovery
+- ✅ User profiles
 
-## What technologies are used for this project?
+### Phase 2 (Planned)
+- 🔄 Firebase integration completion
+- 🔄 Real-time comments
+- 🔄 Push notifications
+- 🔄 Advanced search
+- 🔄 Article analytics
 
-This project is built with:
+### Phase 3 (Future)
+- 📋 PWA support
+- 📋 Offline reading
+- 📋 Email subscriptions
+- 📋 Monetization features
+- 📋 Mobile app (React Native)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🧪 Development
 
-## How can I deploy this project?
+### Available Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-Simply open [Lovable](https://lovable.dev/projects/6f1224d1-356a-45a4-bd0f-7832e49e351b) and click on Share -> Publish.
+### Design System
 
-## Can I connect a custom domain to my Lovable project?
+The project uses a comprehensive design system with:
+- **Color palette**: Semantic HSL tokens for consistent theming
+- **Typography**: Responsive heading and body text scales
+- **Components**: Enhanced shadcn/ui components with custom variants
+- **Animations**: Smooth transitions and hover effects
 
-Yes, you can!
+## 🤝 Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Inspired by Medium's clean reading experience
+- Built with modern web technologies and best practices
+- Design influenced by contemporary publishing platforms
+- Typography inspired by traditional print media
+
+---
+
+**Built with ❤️ for writers and readers everywhere**

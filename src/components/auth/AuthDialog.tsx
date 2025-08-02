@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Lock, User, Github } from "lucide-react";
+import { Mail, Lock, User, Github, Loader2 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 interface AuthDialogProps {
   open: boolean;
@@ -14,16 +16,36 @@ interface AuthDialogProps {
 }
 
 const AuthDialog = ({ open, onOpenChange, mode, onModeChange }: AuthDialogProps) => {
+  const { signIn, signUp, isLoading } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement Firebase authentication
-    console.log("Auth submission:", { mode, formData });
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      if (mode === "signin") {
+        await signIn(formData.email, formData.password);
+        toast.success("Welcome back!");
+      } else {
+        await signUp(formData.email, formData.password, formData.name);
+        toast.success("Account created successfully!");
+      }
+      
+      onOpenChange(false);
+      setFormData({ email: "", password: "", name: "" });
+    } catch (error: any) {
+      toast.error(error.message || "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -89,7 +111,13 @@ const AuthDialog = ({ open, onOpenChange, mode, onModeChange }: AuthDialogProps)
             </div>
           </div>
 
-          <Button type="submit" className="w-full" variant="hero">
+          <Button 
+            type="submit" 
+            className="w-full" 
+            variant="hero"
+            disabled={isSubmitting || !formData.email || !formData.password || (mode === "signup" && !formData.name)}
+          >
+            {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {mode === "signin" ? "Sign In" : "Create Account"}
           </Button>
         </form>
